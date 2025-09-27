@@ -78,7 +78,7 @@ const protectionScript = `
   const currentDomain = window.location.hostname;
   
   // Get allowed domains from environment variables
-  const allowedDomains = [${config.ALLOWED_DOMAINS.map(domain => `"${domain}"`).join(',')}];
+  const allowedDomains = [${config.ALLOWED_DOMAINS.map(domain => '"' + domain + '"').join(',')}];
   
   // Function to check if domain is allowed
   function isDomainAllowed() {
@@ -108,14 +108,7 @@ const protectionScript = `
   // Enforce domain restriction
   if (!isDomainAllowed()) {
     // Show access denied page
-    document.body.innerHTML = 
-      '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; text-align: center;">' +
-        '<h1 style="color: #d32f2f;">Access Denied</h1>' +
-        '<p>This content is not available on this domain.</p>' +
-        '<p><strong>Current domain:</strong> ' + currentDomain + '</p>' +
-        '<p><strong>Allowed domains:</strong> ' + allowedDomains.join(', ') + '</p>' +
-        '<p>If you are the site owner, add this domain to your ALLOWED_DOMAINS environment variable.</p>' +
-      '</div>';
+    document.body.innerHTML = '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; text-align: center;"><h1 style="color: #d32f2f;">Access Denied</h1><p>This content is not available on this domain.</p><p><strong>Current domain:</strong> ' + currentDomain + '</p><p><strong>Allowed domains:</strong> ' + allowedDomains.join(', ') + '</p><p>If you are the site owner, add this domain to your ALLOWED_DOMAINS environment variable.</p></div>';
     return;
   }
   
@@ -127,14 +120,14 @@ const protectionScript = `
     '${config.GITHUB_URL || ''}'
   ];
   
-  const hasDefaultPlaceholders = checkEnvVars.some(value => 
-    value.includes('<!-- ENV_') || 
-    value.includes('your-') || 
-    value.includes('FORM_ID') || 
-    value.includes('RESUME_ID') ||
-    value === 'undefined' ||
-    value === ''
-  );
+  const hasDefaultPlaceholders = checkEnvVars.some(function(value) {
+    return value.includes('<!-- ENV_') || 
+           value.includes('your-') || 
+           value.includes('FORM_ID') || 
+           value.includes('RESUME_ID') ||
+           value === 'undefined' ||
+           value === '';
+  });
   
   if (hasDefaultPlaceholders) {
     document.body.innerHTML = '<h1>Configuration Error</h1><p>This site is not properly configured. Please contact the administrator.</p>';
