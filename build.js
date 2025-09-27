@@ -75,10 +75,10 @@ const protectionScript = `
 // Strict domain-based access control
 (function() {
   // Get current domain
-  const currentDomain = window.location.hostname;
+  var currentDomain = window.location.hostname;
   
   // Get allowed domains from environment variables
-  const allowedDomains = [${config.ALLOWED_DOMAINS.map(domain => '"' + domain + '"').join(',')}];
+  var allowedDomains = ${JSON.stringify(config.ALLOWED_DOMAINS)};
   
   // Function to check if domain is allowed
   function isDomainAllowed() {
@@ -88,8 +88,8 @@ const protectionScript = `
     }
     
     // Check each allowed domain
-    for (let i = 0; i < allowedDomains.length; i++) {
-      const domain = allowedDomains[i].trim();
+    for (var i = 0; i < allowedDomains.length; i++) {
+      var domain = allowedDomains[i].trim();
       
       // Exact match
       if (currentDomain === domain) {
@@ -113,21 +113,26 @@ const protectionScript = `
   }
   
   // Additional protection: Check if environment variables were properly injected
-  const checkEnvVars = [
+  var checkEnvVars = [
     '${config.RESUME_URL || ''}',
     '${config.GOOGLE_FORM_URL || ''}',
     '${config.LINKEDIN_URL || ''}',
     '${config.GITHUB_URL || ''}'
   ];
   
-  const hasDefaultPlaceholders = checkEnvVars.some(function(value) {
-    return value.includes('<!-- ENV_') || 
-           value.includes('your-') || 
-           value.includes('FORM_ID') || 
-           value.includes('RESUME_ID') ||
-           value === 'undefined' ||
-           value === '';
-  });
+  var hasDefaultPlaceholders = false;
+  for (var j = 0; j < checkEnvVars.length; j++) {
+    var value = checkEnvVars[j];
+    if (value.indexOf('<!-- ENV_') !== -1 || 
+        value.indexOf('your-') !== -1 || 
+        value.indexOf('FORM_ID') !== -1 || 
+        value.indexOf('RESUME_ID') !== -1 ||
+        value === 'undefined' ||
+        value === '') {
+      hasDefaultPlaceholders = true;
+      break;
+    }
+  }
   
   if (hasDefaultPlaceholders) {
     document.body.innerHTML = '<h1>Configuration Error</h1><p>This site is not properly configured. Please contact the administrator.</p>';
