@@ -45,16 +45,19 @@ app.use((req, res, next) => {
   
   // If not localhost, check domain restrictions
   if (!isLocalhost) {
-    const allowedDomains = process.env.ALLOWED_DOMAINS ? process.env.ALLOWED_DOMAINS.split(',') : [];
+    const allowedDomains = process.env.ALLOWED_DOMAINS ? process.env.ALLOWED_DOMAINS.split(',').map(domain => domain.trim()) : [];
     
     // If allowed domains are specified, check them
     if (allowedDomains.length > 0) {
       const isAllowedDomain = allowedDomains.some(domain => 
-        req.hostname.includes(domain.trim()) || 
-        req.hostname === domain.trim()
+        req.hostname.includes(domain) || 
+        req.hostname === domain
       );
       
-      if (!isAllowedDomain) {
+      // Special case: always allow vercel.app domains for Vercel deployments
+      const isVercelDomain = req.hostname.endsWith('.vercel.app');
+      
+      if (!isAllowedDomain && !isVercelDomain) {
         return res.status(403).send(`
           <h1>Access Denied</h1>
           <p>This content is not available on this domain.</p>
