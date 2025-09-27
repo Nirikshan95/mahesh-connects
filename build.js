@@ -72,41 +72,32 @@ htmlContent = htmlContent.replace(/<!-- ENV_AI_HUB_URL -->/g, config.AI_HUB_URL 
 // Add protection mechanisms
 const protectionScript = `
 <script>
-// Environment-based protection
+// Strict domain-based access control
 (function() {
-  // Allow localhost for development
-  const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  
-  // Skip protection on localhost for development
-  if (isLocalhost) {
-    console.log('Development mode: Protection disabled on localhost');
-    return;
-  }
-  
-  // Check if we're on the correct domain
-  const allowedDomains = [${config.ALLOWED_DOMAINS.map(domain => `"${domain}"`).join(',')}];
+  // Get current domain
   const currentDomain = window.location.hostname;
   
-  // Log domain checking for debugging
-  console.log('Current domain:', currentDomain);
-  console.log('Allowed domains:', allowedDomains);
+  // Get allowed domains from environment variables
+  const allowedDomains = [${config.ALLOWED_DOMAINS.map(domain => `"${domain}"`).join(',')}];
   
-  // Function to check if current domain is allowed
+  // Function to check if domain is allowed
   function isDomainAllowed() {
-    // If no allowed domains specified, block access (secure by default)
-    if (allowedDomains.length === 0) {
+    // If no allowed domains specified, deny access
+    if (!allowedDomains || allowedDomains.length === 0) {
       return false;
     }
     
     // Check each allowed domain
     for (let i = 0; i < allowedDomains.length; i++) {
       const domain = allowedDomains[i].trim();
+      
       // Exact match
       if (currentDomain === domain) {
         return true;
       }
-      // Subdomain match (e.g., www.yourdomain.com should match yourdomain.com)
-      if (currentDomain.endsWith('.' + domain)) {
+      
+      // Subdomain match (e.g., www.yourdomain.com matches yourdomain.com)
+      if (domain !== 'localhost' && currentDomain.endsWith('.' + domain)) {
         return true;
       }
     }
@@ -114,13 +105,17 @@ const protectionScript = `
     return false;
   }
   
-  const domainIsAllowed = isDomainAllowed();
-  console.log('Is domain allowed:', domainIsAllowed);
-  
-  // If domain is not allowed, show access denied message
-  if (!domainIsAllowed) {
-    console.log('Access denied - domain not in allowed list');
-    document.body.innerHTML = '<h1>Access Denied</h1><p>This content is not available on this domain.</p><p>Current domain: ' + currentDomain + '</p><p>Allowed domains: ' + allowedDomains.join(', ') + '</p>';
+  // Enforce domain restriction
+  if (!isDomainAllowed()) {
+    // Show access denied page
+    document.body.innerHTML = 
+      '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; text-align: center;">' +
+        '<h1 style="color: #d32f2f;">Access Denied</h1>' +
+        '<p>This content is not available on this domain.</p>' +
+        '<p><strong>Current domain:</strong> ' + currentDomain + '</p>' +
+        '<p><strong>Allowed domains:</strong> ' + allowedDomains.join(', ') + '</p>' +
+        '<p>If you are the site owner, add this domain to your ALLOWED_DOMAINS environment variable.</p>' +
+      '</div>';
     return;
   }
   
@@ -132,21 +127,18 @@ const protectionScript = `
     '${config.GITHUB_URL || ''}'
   ];
   
-  // Skip validation on localhost
-  if (!isLocalhost) {
-    const hasDefaultPlaceholders = checkEnvVars.some(value => 
-      value.includes('<!-- ENV_') || 
-      value.includes('your-') || 
-      value.includes('FORM_ID') || 
-      value.includes('RESUME_ID') ||
-      value === 'undefined' ||
-      value === ''
-    );
-    
-    if (hasDefaultPlaceholders) {
-      document.body.innerHTML = '<h1>Configuration Error</h1><p>This site is not properly configured. Please contact the administrator.</p>';
-      return;
-    }
+  const hasDefaultPlaceholders = checkEnvVars.some(value => 
+    value.includes('<!-- ENV_') || 
+    value.includes('your-') || 
+    value.includes('FORM_ID') || 
+    value.includes('RESUME_ID') ||
+    value === 'undefined' ||
+    value === ''
+  );
+  
+  if (hasDefaultPlaceholders) {
+    document.body.innerHTML = '<h1>Configuration Error</h1><p>This site is not properly configured. Please contact the administrator.</p>';
+    return;
   }
   
   // Disable right-click
