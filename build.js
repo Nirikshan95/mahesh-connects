@@ -91,11 +91,36 @@ const protectionScript = `
   console.log('Current domain:', currentDomain);
   console.log('Allowed domains:', allowedDomains);
   
-  // If allowed domains are specified, check them
-  if (allowedDomains.length > 0 && !allowedDomains.some(domain => currentDomain.includes(domain.trim()) || currentDomain === domain.trim())) {
-    // Redirect to a blank page or show an error
+  // Function to check if current domain is allowed
+  function isDomainAllowed() {
+    // If no allowed domains specified, block access (secure by default)
+    if (allowedDomains.length === 0) {
+      return false;
+    }
+    
+    // Check each allowed domain
+    for (let i = 0; i < allowedDomains.length; i++) {
+      const domain = allowedDomains[i].trim();
+      // Exact match
+      if (currentDomain === domain) {
+        return true;
+      }
+      // Subdomain match (e.g., www.yourdomain.com should match yourdomain.com)
+      if (currentDomain.endsWith('.' + domain)) {
+        return true;
+      }
+    }
+    
+    return false;
+  }
+  
+  const domainIsAllowed = isDomainAllowed();
+  console.log('Is domain allowed:', domainIsAllowed);
+  
+  // If domain is not allowed, show access denied message
+  if (!domainIsAllowed) {
     console.log('Access denied - domain not in allowed list');
-    document.body.innerHTML = '<h1>Access Denied</h1><p>This content is not available on this domain.</p><p>Current domain: ' + currentDomain + '</p>';
+    document.body.innerHTML = '<h1>Access Denied</h1><p>This content is not available on this domain.</p><p>Current domain: ' + currentDomain + '</p><p>Allowed domains: ' + allowedDomains.join(', ') + '</p>';
     return;
   }
   
