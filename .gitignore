@@ -1,0 +1,46 @@
+# user defined files
+DEPLOYMENT.md
+README.md
+unrelated_to_project.txt
+
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.example
+
+# Protected files
+index-protected.html
+
+# Logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Temporary folders
+tmp/
+temp/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

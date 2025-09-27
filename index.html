@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahesh Ketam - Connect</title>
+    <link href="output.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #f1f5f9;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+        
+        /* Desktop layout */
+        .main-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+        
+        .left-column {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .banner-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .banner-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-container {
+            position: relative;
+            margin-top: -80px;
+            z-index: 2;
+            margin-bottom: 20px;
+        }
+        
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #3b82f6;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+            margin: 0 auto;
+            position: relative;
+            background: #0f172a;
+        }
+        
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 0 0 10px;
+            background: linear-gradient(90deg, #f1f5f9, #cbd5e1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+        }
+        
+        .title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+        
+        .linkedin { background: #0077b5; }
+        .github { background: #333; }
+        .email { background: #ea4335; }
+        
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .link-item {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 12px;
+            padding: 18px 25px;
+            text-decoration: none;
+            color: #f1f5f9;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: 1px solid #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            max-width: 400px;
+        }
+        
+        .link-item:hover {
+            transform: translateY(-3px);
+            background: rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.2);
+        }
+        
+        /* Resume Download Section */
+        .resume-section {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 15px;
+            padding: 10px;
+            margin: 2px 0 10px;
+            text-align: center;
+            border: 1px solid #334155;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .resume-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #f1f5f9;
+        }
+        
+        .resume-description {
+            color: #94a3b8;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .download-btn {
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
+        }
+        
+        .download-btn:active {
+            transform: translateY(0);
+        }
+        
+        .security-note {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #64748b;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: #1e293b;
+            border-radius: 15px;
+            padding: 25px;
+            width: 90%;
+            max-width: 450px;
+            border: 1px solid #334155;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            animation: modalopen 0.3s;
+        }
+        
+        @keyframes modalopen {
+            from {opacity: 0; transform: translateY(-60px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+        
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0;
+            color: #f1f5f9;
+        }
+        
+        .close {
+            color: #94a3b8;
+            font-size: 1.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        
+        .close:hover {
+            color: #f1f5f9;
+            background-color: rgba(148, 163, 184, 0.2);
+        }
+        
+        .modal-body {
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #cbd5e1;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: rgba(15, 23, 42, 0.7);
+            color: #f1f5f9;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        .form-input::placeholder {
+            color: #64748b;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(59, 130, 246, 0.4);
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: none;
+            text-align: left;
+        }
+        
+        .access-denied {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 10px;
+            margin-top: 15px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        
+        .access-denied h3 {
+            color: #ef4444;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        
+        .access-denied p {
+            color: #fecaca;
+            margin: 0;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+        
+        .info-text {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        /* Hidden Google Form */
+        .hidden-google-form {
+            display: none;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .left-column, .right-column {
+                width: 100%;
+                max-width: 500px;
+            }
+            
+            .profile-container {
+                margin-top: -100px;
+                margin-bottom: 40px;
+            }
+            
+            .social-links {
+                margin-top: 30px;
+            }
+            
+            .link-item, .resume-section {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+            }
+            
+            .name {
+                font-size: 1.8rem;
+            }
+            
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .link-item, .resume-section {
+                padding: 15px 20px;
+                font-size: 1rem;
+            }
+            
+            .modal-content {
+                padding: 20px;
+            }
+            
+            .resume-section {
+                padding: 20px;
+            }
+            
+            .download-btn {
+                padding: 12px 20px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-content">
+            <div class="left-column">
+                <div class="banner-image">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=200&fit=crop" alt="Tech Banner">
+                </div>
+                
+                <div class="profile-container">
+                    <div class="profile-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" alt="Mahesh Ketam">
+                    </div>
+                </div>
+                
+                <h1 class="name">Mahesh Ketam</h1>
+                <p class="title">AI Engineer & Innovation Architect</p>
+                
+                <div class="social-links">
+                    <a href="<!-- ENV_LINKEDIN_URL -->" target="_blank" class="social-link linkedin">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="<!-- ENV_GITHUB_URL -->" target="_blank" class="social-link github">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:<!-- ENV_EMAIL_ADDRESS -->" class="social-link email">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="right-column">
+                <div class="links">
+                    <a href="<!-- ENV_PROFILE_MAGNET_URL -->" target="_blank" class="link-item">
+                        ProfileMagnet
+                    </a>
+                    
+                    <a href="<!-- ENV_AI_PORTFOLIO_URL -->" target="_blank" class="link-item">
+                        100 Days of AI Portfolio
+                    </a>
+
+                    <a href="<!-- ENV_AI_HUB_URL -->" target="_blank" class="link-item">
+                        <span class="link-icon">💬</span>
+                        AI Innovators Hub
+                    </a>
+                </div>
+                
+                <!-- Resume Download Section -->
+                <div class="resume-section">
+                    <h2 class="resume-title">Download My Resume</h2>
+                    <p class="resume-description">Get a copy of my professional resume. Please provide your email for access.</p>
+                    <button id="download-resume" class="download-btn">
+                        <span>📄</span> Download PDF
+                    </button>
+                    <div class="security-note">
+                        <span>🔒</span>
+                        <span>Your email is securely stored and never shared</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Email Verification Modal -->
+        <div id="email-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Download Resume</h2>
+                    <button class="close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Enter your email address</label>
+                        <input type="email" id="email" class="form-input" placeholder="name@company.com">
+                        <div id="error-message" class="error-message">Please enter a valid email address</div>
+                    </div>
+                    <button id="verify-email" class="btn btn-primary">Download Resume</button>
+                    <p class="info-text">By downloading, you agree to provide your email for access tracking.</p>
+                </div>
+                <div id="access-denied" class="access-denied">
+                    <h3>Access Denied</h3>
+                    <p>Please use a company email address. Personal email providers like Gmail, Yahoo, etc. are not allowed.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hidden Google Form for secure email storage -->
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+        <form id="google-form" class="hidden-google-form" action="<!-- ENV_GOOGLE_FORM_URL -->" method="post" target="hidden_iframe">
+            <input type="email" id="google-form-email" name="<!-- ENV_GOOGLE_FORM_EMAIL_ENTRY -->">
+            <input type="submit" value="Submit">
+        </form>
+        
+        <div class="footer">
+            <p>© <span id="current-year">2024</span> Mahesh Ketam. All rights reserved.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Set current year in footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentYear = new Date().getFullYear();
+            const yearSpan = document.getElementById('current-year');
+            if (yearSpan) {
+                yearSpan.textContent = currentYear;
+            }
+        });
+        
+        // Resume download link - will be replaced by build process
+        const RESUME_URL = "<!-- ENV_RESUME_URL -->";
+        
+        // Get DOM elements
+        const downloadBtn = document.getElementById('download-resume');
+        const modal = document.getElementById('email-modal');
+        const closeBtn = document.querySelector('.close');
+        const emailInput = document.getElementById('email');
+        const verifyBtn = document.getElementById('verify-email');
+        const errorMessage = document.getElementById('error-message');
+        const accessDenied = document.getElementById('access-denied');
+        const googleForm = document.getElementById('google-form');
+        const googleFormEmail = document.getElementById('google-form-email');
+        
+        // Show modal when download button is clicked
+        downloadBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.style.display = 'flex';
+            emailInput.value = '';
+            errorMessage.style.display = 'none';
+            accessDenied.style.display = 'none';
+            // Focus on email input when modal opens
+            setTimeout(() => {
+                emailInput.focus();
+            }, 100);
+        });
+        
+        // Close modal when close button is clicked
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside the modal content
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // Verify email and download resume
+        verifyBtn.addEventListener('click', function() {
+            const email = emailInput.value.trim();
+            
+            // Check if email is valid
+            if (!email) {
+                errorMessage.textContent = 'Please enter an email address';
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                // Check if it's a personal email domain
+                const personalDomains = [
+                    'gmail.com',
+                    'yahoo.com',
+                    'hotmail.com',
+                    'outlook.com',
+                    'aol.com',
+                    'icloud.com',
+                    'live.com',
+                    'protonmail.com',
+                    'yandex.com',
+                    'mail.com'
+                ];
+                
+                const domain = email.split('@')[1];
+                if (domain && personalDomains.includes(domain.toLowerCase())) {
+                    errorMessage.textContent = 'Access denied. Please use a company email address.';
+                } else {
+                    errorMessage.textContent = 'Please enter a valid email address';
+                }
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Hide error message if it was showing
+            errorMessage.style.display = 'none';
+            
+            // Submit email to Google Form for secure storage
+            googleFormEmail.value = email;
+            googleForm.submit();
+            
+            // Close modal and open resume link after a short delay
+            setTimeout(() => {
+                modal.style.display = 'none';
+                // Open resume in new tab
+                window.open(RESUME_URL, '_blank');
+            }, 500);
+        });
+        
+        // Email validation with domain restriction
+        function isValidEmail(email) {
+            // Basic email format validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                return false;
+            }
+            
+            // Block personal email domains
+            const personalDomains = [
+                'gmail.com',
+                'yahoo.com',
+                'hotmail.com',
+                'outlook.com',
+                'aol.com',
+                'icloud.com',
+                'live.com',
+                'protonmail.com',
+                'yandex.com',
+                'mail.com'
+            ];
+            
+            const domain = email.split('@')[1].toLowerCase();
+            return !personalDomains.includes(domain);
+        }
+        
+        // Allow Enter key to submit the form
+        emailInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                verifyBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>
