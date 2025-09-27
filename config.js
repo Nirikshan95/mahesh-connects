@@ -1,47 +1,24 @@
-// config.js - Handle environment variables and protection
-const dotenv = require('dotenv');
-dotenv.config();
+// config.js - Direct configuration with actual values from .env
 
-// Check for required environment variables
-const requiredEnvVars = [
-  'GOOGLE_FORM_URL',
-  'GOOGLE_FORM_EMAIL_ENTRY',
-  'RESUME_URL',
-  'LINKEDIN_URL',
-  'GITHUB_URL',
-  'EMAIL_ADDRESS',
-  'PROFILE_MAGNET_URL',
-  'AI_PORTFOLIO_URL',
-  'AI_HUB_URL'
-];
-
-const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
-
-if (missingEnvVars.length > 0) {
-  console.warn('Warning: Missing required environment variables:');
-  missingEnvVars.forEach(envVar => console.warn(`- ${envVar}`));
-  console.warn('Please set these in your .env file for full functionality.');
-}
-
-// Export configuration
+// Export configuration with actual values
 module.exports = {
   // Google Form settings
-  GOOGLE_FORM_URL: process.env.GOOGLE_FORM_URL || '',
-  GOOGLE_FORM_EMAIL_ENTRY: process.env.GOOGLE_FORM_EMAIL_ENTRY || '',
+  GOOGLE_FORM_URL: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSftfinlBv45fqmWJo-11DQ4NL4Lw2vixcwRYHmyoOSRnQtpEg/formResponse',
+  GOOGLE_FORM_EMAIL_ENTRY: 'entry.369025323',
   
   // Resume URL
-  RESUME_URL: process.env.RESUME_URL || '',
+  RESUME_URL: 'https://drive.google.com/file/d/1263dBLHwE6xQDdXrT0WX1FFjZrGnDhJb/view?usp=sharing',
   
   // Social Media URLs
-  LINKEDIN_URL: process.env.LINKEDIN_URL || '',
-  GITHUB_URL: process.env.GITHUB_URL || '',
-  EMAIL_ADDRESS: process.env.EMAIL_ADDRESS || '',
+  LINKEDIN_URL: 'https://www.linkedin.com/in/mahesh-ketam/',
+  GITHUB_URL: 'https://github.com/Nirikshan95',
+  EMAIL_ADDRESS: 'nirikshan987654321@gmail.com',
   
   // Profile Links
-  PROFILE_MAGNET_URL: process.env.PROFILE_MAGNET_URL || '',
-  AI_PORTFOLIO_URL: process.env.AI_PORTFOLIO_URL || '',
-  AI_HUB_URL: process.env.AI_HUB_URL || '',
+  PROFILE_MAGNET_URL: 'https://profilemagnet.pages.dev/',
+  AI_PORTFOLIO_URL: 'https://nirikshan95.github.io/100DaysOfAI_Portfolio/',
+  AI_HUB_URL: 'https://chat.whatsapp.com/DbaUWOQGGC6HpmKDf9VsIL',
   
   // Domain restrictions
-  ALLOWED_DOMAINS: process.env.ALLOWED_DOMAINS ? process.env.ALLOWED_DOMAINS.split(',') : ['localhost']
+  ALLOWED_DOMAINS: ['localhost', 'mahesh-connects.vercel.app']
 };

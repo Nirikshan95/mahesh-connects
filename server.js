@@ -2,50 +2,19 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const dotenv = require('dotenv');
-
-// Load environment variables
-dotenv.config();
+const config = require('./config');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Check for required environment variables
-const requiredEnvVars = [
-  'GOOGLE_FORM_URL',
-  'GOOGLE_FORM_EMAIL_ENTRY',
-  'RESUME_URL',
-  'LINKEDIN_URL',
-  'GITHUB_URL',
-  'EMAIL_ADDRESS',
-  'PROFILE_MAGNET_URL',
-  'AI_PORTFOLIO_URL',
-  'AI_HUB_URL'
-];
-
-// Middleware to check environment variables and domain restrictions
+// Middleware to check domain restrictions
 app.use((req, res, next) => {
   // Check if request is from localhost for development access
   const isLocalhost = req.hostname === 'localhost' || req.hostname === '127.0.0.1' || req.ip === '::1' || req.ip === '127.0.0.1';
   
-  // Only enforce environment variable checks for non-localhost requests
-  if (!isLocalhost) {
-    // Check if all required environment variables are set
-    const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
-    
-    if (missingEnvVars.length > 0) {
-      return res.status(500).send(`
-        <h1>Server Configuration Error</h1>
-        <p>Missing required environment variables:</p>
-        <ul>${missingEnvVars.map(envVar => `<li>${envVar}</li>`).join('')}</ul>
-        <p>Please set these variables in your .env file.</p>
-      `);
-    }
-  }
-  
   // If not localhost, check domain restrictions
   if (!isLocalhost) {
-    const allowedDomains = process.env.ALLOWED_DOMAINS ? process.env.ALLOWED_DOMAINS.split(',').map(domain => domain.trim()) : [];
+    const allowedDomains = config.ALLOWED_DOMAINS || [];
     
     // If allowed domains are specified, check them
     if (allowedDomains.length > 0) {
@@ -59,7 +28,7 @@ app.use((req, res, next) => {
           <h1>Access Denied</h1>
           <p>This content is not available on this domain.</p>
           <p>Requesting domain: ${req.hostname}</p>
-          <p>If you are the site owner, add this domain to your ALLOWED_DOMAINS environment variable.</p>
+          <p>If you are the site owner, add this domain to your ALLOWED_DOMAINS configuration.</p>
         `);
       }
     }
@@ -115,13 +84,12 @@ app.get('/', (req, res) => {
             <div class="steps">
               <h2>How to fix this:</h2>
               <ol>
-                <li>Make sure your <code>.env</code> file is properly configured with all required variables</li>
                 <li>Run the build process: <code>node build.js</code></li>
                 <li>Restart the server: <code>node server.js</code></li>
               </ol>
             </div>
             
-            <p><strong>Note:</strong> The build process replaces placeholder comments like <code>&lt;!-- ENV_LINKEDIN_URL --&gt;</code> with actual URLs from your environment variables.</p>
+            <p><strong>Note:</strong> The build process replaces placeholder comments like <code>&lt;!-- ENV_LINKEDIN_URL --&gt;</code> with actual URLs from your configuration.</p>
           </div>
         </body>
         </html>
@@ -155,6 +123,5 @@ app.listen(PORT, () => {
   console.log('\n--- DEVELOPMENT INSTRUCTIONS ---');
   console.log('1. For fully working links, run: node build.js');
   console.log('2. For development/testing with template, links will show as placeholders');
-  console.log('3. Update your .env file with real values for production');
   console.log('--- END INSTRUCTIONS ---\n');
 });
