@@ -87,11 +87,8 @@ const protectionScript = `
   const allowedDomains = [${config.ALLOWED_DOMAINS.map(domain => `"${domain}"`).join(',')}];
   const currentDomain = window.location.hostname;
   
-  // Special case: always allow vercel.app domains for Vercel deployments
-  const isVercelDomain = currentDomain.endsWith('.vercel.app');
-  
   // If allowed domains are specified, check them
-  if (allowedDomains.length > 0 && !allowedDomains.some(domain => currentDomain.includes(domain.trim()) || currentDomain === domain.trim()) && !isVercelDomain) {
+  if (allowedDomains.length > 0 && !allowedDomains.some(domain => currentDomain.includes(domain.trim()) || currentDomain === domain.trim())) {
     // Redirect to a blank page or show an error
     document.body.innerHTML = '<h1>Access Denied</h1><p>This content is not available on this domain.</p>';
     return;

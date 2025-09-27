@@ -54,14 +54,12 @@ app.use((req, res, next) => {
         req.hostname === domain
       );
       
-      // Special case: always allow vercel.app domains for Vercel deployments
-      const isVercelDomain = req.hostname.endsWith('.vercel.app');
-      
-      if (!isAllowedDomain && !isVercelDomain) {
+      if (!isAllowedDomain) {
         return res.status(403).send(`
           <h1>Access Denied</h1>
           <p>This content is not available on this domain.</p>
           <p>Requesting domain: ${req.hostname}</p>
+          <p>If you are the site owner, add this domain to your ALLOWED_DOMAINS environment variable.</p>
         `);
       }
     }
