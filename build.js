@@ -87,10 +87,15 @@ const protectionScript = `
   const allowedDomains = [${config.ALLOWED_DOMAINS.map(domain => `"${domain}"`).join(',')}];
   const currentDomain = window.location.hostname;
   
+  // Log domain checking for debugging
+  console.log('Current domain:', currentDomain);
+  console.log('Allowed domains:', allowedDomains);
+  
   // If allowed domains are specified, check them
   if (allowedDomains.length > 0 && !allowedDomains.some(domain => currentDomain.includes(domain.trim()) || currentDomain === domain.trim())) {
     // Redirect to a blank page or show an error
-    document.body.innerHTML = '<h1>Access Denied</h1><p>This content is not available on this domain.</p>';
+    console.log('Access denied - domain not in allowed list');
+    document.body.innerHTML = '<h1>Access Denied</h1><p>This content is not available on this domain.</p><p>Current domain: ' + currentDomain + '</p>';
     return;
   }
   
