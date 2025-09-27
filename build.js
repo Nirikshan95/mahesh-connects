@@ -78,7 +78,7 @@ const protectionScript = `
   var currentDomain = window.location.hostname;
   
   // Get allowed domains from environment variables
-  var allowedDomains = [${JSON.stringify(config.ALLOWED_DOMAINS)}];
+  var allowedDomains = ${JSON.stringify(config.ALLOWED_DOMAINS)};
   
   // Function to check if domain is allowed
   function isDomainAllowed() {
