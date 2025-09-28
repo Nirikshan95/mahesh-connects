@@ -149,6 +149,17 @@
             justify-content: center;
         }
         
+        .category-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #93c5fd;
+            margin: 25px 0 10px;
+            text-align: center;
+            width: 100%;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 8px;
+        }
+        
         .link-item {
             background: rgba(15, 23, 42, 0.7);
             border-radius: 12px;
@@ -176,14 +187,14 @@
         /* Resume Download Section */
         .resume-section {
             background: rgba(15, 23, 42, 0.7);
-            border-radius: 15px;
-            padding: 10px;
-            margin: 30px 0 10px;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
             text-align: center;
             border: 1px solid #334155;
-            width: 100%;
-            max-width: 500px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .resume-title {
@@ -513,36 +524,45 @@
             
             <div class="right-column">
                 <div class="links">
-                    <a href="<!-- ENV_PROFILE_MAGNET_URL -->" target="_blank" class="link-item">
-                        ProfileMagnet
-                    </a>
+                    <!-- Portfolios & Work Samples -->
+                    <h3 class="category-title">Portfolios & Work Samples</h3>
                     
                     <a href="<!-- ENV_AI_PORTFOLIO_URL -->" target="_blank" class="link-item">
                         100 Days of AI Portfolio
-                    </a>
-
-                    <a href="<!-- ENV_AI_HUB_URL -->" target="_blank" class="link-item">
-                        <span class="link-icon">💬</span>
-                        AI Innovators Hub
                     </a>
                     
                     <a href="<!-- ENV_PDF_PORTFOLIO_URL -->" target="_blank" class="link-item">
                         <span class="link-icon">📄</span>
                         PDF Portfolio
                     </a>
-                </div>
-                
-                <!-- Resume Download Section -->
-                <div class="resume-section">
-                    <h2 class="resume-title">Download My Resume</h2>
-                    <p class="resume-description">Get a copy of my professional resume. Please provide your email for access.</p>
-                    <button id="download-resume" class="download-btn">
-                        <span>📄</span> Download PDF
-                    </button>
-                    <div class="security-note">
-                        <span>🔒</span>
-                        <span>Your email is securely stored and never shared</span>
+                    
+                    <!-- Resume Download Section -->
+                    <div class="resume-section">
+                        <h2 class="resume-title">Resume</h2>
+                        <p class="resume-description">Download my professional resume. Please provide your email for access.</p>
+                        <button id="download-resume" class="download-btn">
+                            <span>📄</span> Download PDF
+                        </button>
+                        <div class="security-note">
+                            <span>🔒</span>
+                            <span>Your email is securely stored and never shared</span>
+                        </div>
                     </div>
+                    
+                    <!-- Projects & Creations -->
+                    <h3 class="category-title">Projects & Creations</h3>
+                    
+                    <a href="<!-- ENV_PROFILE_MAGNET_URL -->" target="_blank" class="link-item">
+                        ProfileMagnet Website
+                    </a>
+                    
+                    <!-- Communities & Networking -->
+                    <h3 class="category-title">Communities & Networking</h3>
+                    
+                    <a href="<!-- ENV_AI_HUB_URL -->" target="_blank" class="link-item">
+                        <span class="link-icon">💬</span>
+                        AI Innovators Hub (WhatsApp)
+                    </a>
                 </div>
             </div>
         </div>
