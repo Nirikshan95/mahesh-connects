@@ -1,8 +1,3 @@
-# user defined files
-DEPLOYMENT.md
-README.md
-unrelated_to_project.txt
-
 # Dependencies
 node_modules/
 

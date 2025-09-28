@@ -20,76 +20,11 @@ htmlContent = htmlContent.replace(/<!-- ENV_AI_PORTFOLIO_URL -->/g, config.AI_PO
 htmlContent = htmlContent.replace(/<!-- ENV_AI_HUB_URL -->/g, config.AI_HUB_URL || '#');
 htmlContent = htmlContent.replace(/<!-- ENV_PDF_PORTFOLIO_URL -->/g, config.PDF_PORTFOLIO_URL || '#');
 
-// Add protection mechanisms
+// Add protection mechanisms (without domain restriction)
 const protectionScript = `
 <script>
-// Strict domain-based access control
+// Content protection mechanisms
 (function() {
-  // Get current domain
-  var currentDomain = window.location.hostname;
-  
-  // Get allowed domains from configuration
-  var allowedDomains = ${JSON.stringify(config.ALLOWED_DOMAINS)};
-  
-  // Function to check if domain is allowed
-  function isDomainAllowed() {
-    // If no allowed domains specified, deny access
-    if (!allowedDomains || allowedDomains.length === 0) {
-      return false;
-    }
-    
-    // Check each allowed domain
-    for (var i = 0; i < allowedDomains.length; i++) {
-      var domain = allowedDomains[i].trim();
-      
-      // Exact match
-      if (currentDomain === domain) {
-        return true;
-      }
-      
-      // Subdomain match (e.g., www.yourdomain.com matches yourdomain.com)
-      if (domain !== 'localhost' && currentDomain.endsWith('.' + domain)) {
-        return true;
-      }
-    }
-    
-    return false;
-  }
-  
-  // Enforce domain restriction
-  if (!isDomainAllowed()) {
-    // Show access denied page
-    document.body.innerHTML = '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; text-align: center;"><h1 style="color: #d32f2f;">Access Denied</h1><p>This content is not available on this domain.</p><p><strong>Current domain:</strong> ' + currentDomain + '</p><p><strong>Allowed domains:</strong> ' + allowedDomains.join(', ') + '</p><p>If you are the site owner, add this domain to your ALLOWED_DOMAINS configuration.</p></div>';
-    return;
-  }
-  
-  // Additional protection: Check if configuration values were properly injected
-  var checkEnvVars = [
-    '${config.RESUME_URL || ''}',
-    '${config.GOOGLE_FORM_URL || ''}',
-    '${config.LINKEDIN_URL || ''}',
-    '${config.GITHUB_URL || ''}'
-  ];
-  
-  var hasDefaultPlaceholders = false;
-  for (var j = 0; j < checkEnvVars.length; j++) {
-    var value = checkEnvVars[j];
-    if (value.indexOf('<!-- ENV_') !== -1 || 
-        value.indexOf('your-') !== -1 || 
-        value.indexOf('FORM_ID') !== -1 || 
-        value.indexOf('RESUME_ID') !== -1 ||
-        value === 'undefined' ||
-        value === '') {
-      hasDefaultPlaceholders = true;
-      break;
-    }
-  }
-  
-  if (hasDefaultPlaceholders) {
-    document.body.innerHTML = '<h1>Configuration Error</h1><p>This site is not properly configured. Please contact the administrator.</p>';
-    return;
-  }
-  
   // Disable right-click
   document.addEventListener('contextmenu', function(e) {
     e.preventDefault();
