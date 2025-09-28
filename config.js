@@ -9,6 +9,9 @@ module.exports = {
   // Resume URL
   RESUME_URL: 'https://drive.google.com/file/d/1263dBLHwE6xQDdXrT0WX1FFjZrGnDhJb/view?usp=sharing',
   
+  // PDF Portfolio URL
+  PDF_PORTFOLIO_URL: 'https://drive.google.com/file/d/1PLj1uhZpJhUkVz1eSUsONNBTwmQZxZKO/view?usp=sharing',
+  
   // Social Media URLs
   LINKEDIN_URL: 'https://www.linkedin.com/in/mahesh-ketam/',
   GITHUB_URL: 'https://github.com/Nirikshan95',

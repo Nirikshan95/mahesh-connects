@@ -18,6 +18,7 @@ htmlContent = htmlContent.replace(/<!-- ENV_EMAIL_ADDRESS -->/g, config.EMAIL_AD
 htmlContent = htmlContent.replace(/<!-- ENV_PROFILE_MAGNET_URL -->/g, config.PROFILE_MAGNET_URL || '#');
 htmlContent = htmlContent.replace(/<!-- ENV_AI_PORTFOLIO_URL -->/g, config.AI_PORTFOLIO_URL || '#');
 htmlContent = htmlContent.replace(/<!-- ENV_AI_HUB_URL -->/g, config.AI_HUB_URL || '#');
+htmlContent = htmlContent.replace(/<!-- ENV_PDF_PORTFOLIO_URL -->/g, config.PDF_PORTFOLIO_URL || '#');
 
 // Add protection mechanisms
 const protectionScript = `
