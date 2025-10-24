@@ -22,6 +22,9 @@ module.exports = {
   AI_PORTFOLIO_URL: 'https://nirikshan95.github.io/100DaysOfAI_Portfolio/',
   AI_HUB_URL: 'https://chat.whatsapp.com/DbaUWOQGGC6HpmKDf9VsIL',
   
+  // Complete Portfolio Website
+  COMPLETE_PORTFOLIO_URL: 'https://mahesh-ketam.netlify.app/',
+  
   // Domain restrictions
   ALLOWED_DOMAINS: ['localhost', 'mahesh-connects.vercel.app']
 };
