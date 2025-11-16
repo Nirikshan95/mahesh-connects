@@ -22,6 +22,9 @@ module.exports = {
   AI_PORTFOLIO_URL: 'https://nirikshan95.github.io/100DaysOfAI_Portfolio/',
   AI_HUB_URL: 'https://chat.whatsapp.com/DbaUWOQGGC6HpmKDf9VsIL',
   
+  // QuizGen AI Application
+  QUIZGEN_AI_URL: 'https://quizgen-ai-yi8u.onrender.com/',
+  
   // Complete Portfolio Website
   COMPLETE_PORTFOLIO_URL: 'https://mahesh-ketam.netlify.app/',
   

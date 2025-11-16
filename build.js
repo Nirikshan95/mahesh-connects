@@ -20,6 +20,7 @@ htmlContent = htmlContent.replace(/<!-- ENV_AI_PORTFOLIO_URL -->/g, config.AI_PO
 htmlContent = htmlContent.replace(/<!-- ENV_AI_HUB_URL -->/g, config.AI_HUB_URL || '#');
 htmlContent = htmlContent.replace(/<!-- ENV_PDF_PORTFOLIO_URL -->/g, config.PDF_PORTFOLIO_URL || '#');
 htmlContent = htmlContent.replace(/<!-- ENV_COMPLETE_PORTFOLIO_URL -->/g, config.COMPLETE_PORTFOLIO_URL || '#');
+htmlContent = htmlContent.replace(/<!-- ENV_QUIZGEN_AI_URL -->/g, config.QUIZGEN_AI_URL || '#');
 
 // Add protection mechanisms (without domain restriction)
 const protectionScript = `
